@@ -1,0 +1,14 @@
+# Uploaded media (keep folder protection files)
+/uploads/enquiries/*
+!/uploads/enquiries/.htaccess
+!/uploads/enquiries/index.php
+/uploads/portfolio/*
+!/uploads/portfolio/index.php
+
+# Local / OS files
+.DS_Store
+Thumbs.db
+*.log
+/error_log
+.idea/
+.vscode/

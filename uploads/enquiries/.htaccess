@@ -1,0 +1,8 @@
+# Customer reference files are private — served only via /admin/file.php to logged-in admins.
+<IfModule mod_authz_core.c>
+    Require all denied
+</IfModule>
+<IfModule !mod_authz_core.c>
+    Order allow,deny
+    Deny from all
+</IfModule>

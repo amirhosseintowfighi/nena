@@ -1,0 +1,14 @@
+# Nena Studio — robots.txt
+# Note: on Apache/LiteSpeed with mod_rewrite, /robots.txt is served dynamically by robots.php
+# (so the Sitemap URL always matches your domain). This file is the static fallback —
+# replace the domain below with your own.
+
+User-agent: *
+Allow: /
+Disallow: /admin/
+Disallow: /api/
+Disallow: /includes/
+Disallow: /uploads/enquiries/
+Allow: /uploads/portfolio/
+
+Sitemap: https://www.nenastudio.nl/sitemap.xml
