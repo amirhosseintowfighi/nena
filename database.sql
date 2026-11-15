@@ -6,7 +6,7 @@
 --  Default admin login (CHANGE IT right after first login in
 --  Admin > Settings > Change Password):
 --      Username: admin
---      Password: NenaStudio@2026
+--      Password: (not published — ask the project owner)
 -- =====================================================================
 
 SET NAMES utf8mb4;
@@ -67,7 +67,7 @@ CREATE TABLE `admins` (
   UNIQUE KEY `uniq_admin_username` (`username`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Password: NenaStudio@2026  (bcrypt via PHP password_hash)
+-- Password: (not published — ask the project owner)  (bcrypt via PHP password_hash)
 INSERT INTO `admins` (`username`, `email`, `password_hash`) VALUES
 ('admin', 'hello@nenastudio.nl', '$2y$10$WOkSn7gqj9zfw2/OGxIs3eKI43jfF.LBeeLwzo4aalCbQhtznzxqO');
 

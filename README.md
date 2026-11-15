@@ -13,8 +13,7 @@ Production-ready PHP 8.1+ / MySQL website for Nena Studio — a creative textile
 4. **اتصال:** فایل `includes/config.php` را باز کنید و `DB_NAME`، `DB_USER`، `DB_PASS` را وارد کنید. (اختیاری: `SITE_URL` را مثلاً `https://www.nenastudio.nl` بگذارید.)
 5. **دسترسی پوشه‌ها:** پوشه‌های `uploads/enquiries` و `uploads/portfolio` باید قابل نوشتن باشند (معمولاً 755).
 6. **ورود به پنل:** به آدرس `/admin` بروید.
-   - نام کاربری: `admin`
-   - رمز عبور: `NenaStudio@2026`
+   - نام کاربری و رمز عبورِ پیش‌فرض را از مدیر پروژه بگیرید (عمداً در این مخزنِ عمومی نوشته نشده است).
    - **بلافاصله** از بخش *SEO & Settings* رمز را تغییر دهید.
 7. **SSL:** بعد از فعال شدن SSL، خطوط Force HTTPS را در `.htaccess` از حالت کامنت خارج کنید.
 8. **لوگوها:** فایل‌های `NENA MAIN.svg`، `NENA WHITE.svg` و `NENA BLACK.svg` در `assets/images/` قرار دارند؛ اگر حذف شوند، نسخه‌ی inline SVG به‌صورت خودکار نمایش داده می‌شود.
@@ -28,7 +27,7 @@ Production-ready PHP 8.1+ / MySQL website for Nena Studio — a creative textile
 3. **phpMyAdmin** → select the database → **Import** → `database.sql`.
 4. Edit `includes/config.php` → `DB_HOST`, `DB_NAME`, `DB_USER`, `DB_PASS` (optionally `SITE_URL`).
 5. Make sure `uploads/enquiries/` and `uploads/portfolio/` are writable (755).
-6. Log in at `/admin` with **admin / NenaStudio@2026** and change the password immediately.
+6. Log in at `/admin` with the default credentials (ask the project owner; they are deliberately not written in this public repository) and change the password immediately.
 7. Once SSL is active, uncomment the *Force HTTPS* block (and HSTS) in `.htaccess`.
 8. In **Admin → SEO & Settings** set your canonical URL, contact email, Instagram, city and coordinates, then submit `/sitemap.xml` in Google Search Console.
 
