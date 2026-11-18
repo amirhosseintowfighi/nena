@@ -8,6 +8,7 @@
 declare(strict_types=1);
 
 require_once dirname(__DIR__) . '/includes/config.php';
+require_once dirname(__DIR__) . '/includes/content.php';
 
 header('Content-Type: application/json; charset=utf-8');
 header('Cache-Control: no-store');
@@ -185,5 +186,5 @@ if ($notify !== '' && filter_var($notify, FILTER_VALIDATE_EMAIL) && function_exi
 
 respond(200, [
     'success' => true,
-    'message' => 'Thank you, ' . $name . "! I've received your story and will be in touch soon to explore it together.",
+    'message' => str_replace('{name}', $name, content('form_success_text')),
 ]);

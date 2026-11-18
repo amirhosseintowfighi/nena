@@ -246,3 +246,16 @@ input[type="file"] { font-weight: 400; font-size: .85rem; padding: .6rem; border
 .stat.status--completed .stat__num { color: var(--color-bg-alt); }
 .stat.status--completed .stat__label { color: var(--color-sage); }
 .stat.status--completed::after { border-color: rgba(249, 246, 236, .35); }
+
+/* Website texts */
+.content-help ul { margin: .4rem 0 0; padding-left: 1.2rem; }
+.content-help p { margin: 0; }
+.content-group { padding: 0; }
+.content-group summary { display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding: 1.1rem 1.5rem; cursor: pointer; list-style: none; }
+.content-group summary::-webkit-details-marker { display: none; }
+.content-group summary h2 { margin: 0; }
+.content-group summary::after { content: "+"; font-size: 1.5rem; color: var(--color-accent); line-height: 1; }
+.content-group[open] summary::after { content: "–"; }
+.content-group__count { margin-left: auto; font-size: .8rem; color: var(--color-muted); }
+.content-group form { padding: 0 1.5rem 1.5rem; border-top: 1.5px dashed rgba(166, 181, 160, .7); padding-top: 1.2rem; }
+.content-edited { color: var(--color-accent); font-weight: 600; }

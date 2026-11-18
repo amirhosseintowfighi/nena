@@ -6,6 +6,7 @@
 declare(strict_types=1);
 
 require_once __DIR__ . '/logo.php';
+require_once __DIR__ . '/content.php';
 
 /**
  * Print the full <head> section.
@@ -94,10 +95,10 @@ function render_header(bool $onHome = true): void
 {
     $prefix = $onHome ? '' : url('');
     $links = [
-        '#home'                => 'Home',
-        '#our-story'           => 'Our Story',
-        '#what-we-create'      => 'What We Create',
-        '#behind-the-stitches' => 'Behind the Stitches',
+        '#home'                => content('nav_home'),
+        '#our-story'           => content('nav_story'),
+        '#what-we-create'      => content('nav_create'),
+        '#behind-the-stitches' => content('nav_stitches'),
     ];
     ?>
 <a class="skip-link" href="#main">Skip to content</a>
@@ -115,7 +116,7 @@ function render_header(bool $onHome = true): void
                 <?php foreach ($links as $hash => $label): ?>
                 <li><a href="<?= e($prefix . $hash) ?>" data-nav-link><?= e($label) ?></a></li>
                 <?php endforeach; ?>
-                <li><a class="btn btn--primary btn--nav" href="<?= e($prefix . '#lets-create-together') ?>">Let's Create Together</a></li>
+                <li><a class="btn btn--primary btn--nav" href="<?= e($prefix . '#lets-create-together') ?>"><?= ct('nav_cta') ?></a></li>
             </ul>
         </nav>
     </div>
@@ -140,20 +141,20 @@ function render_footer(): void
     <div class="container site-footer__grid">
         <div class="site-footer__brand">
             <?= brand_logo('WHITE', 'site-footer__logo', false) ?>
-            <p class="site-footer__tagline">Your Story, One Stitch at a Time.</p>
-            <p class="site-footer__meta">Personalised textile creations, embroidery, and thoughtful alterations — made in the Netherlands.</p>
+            <p class="site-footer__tagline"><?= ct('footer_tagline') ?></p>
+            <p class="site-footer__meta"><?= ct_multiline('footer_description') ?></p>
         </div>
         <nav aria-label="Footer navigation">
-            <h2 class="site-footer__title">Explore</h2>
+            <h2 class="site-footer__title"><?= ct('footer_explore_title') ?></h2>
             <ul>
-                <li><a href="<?= e($home) ?>#our-story">Our Story</a></li>
-                <li><a href="<?= e($home) ?>#what-we-create">What We Create</a></li>
-                <li><a href="<?= e($home) ?>#behind-the-stitches">Behind the Stitches</a></li>
-                <li><a href="<?= e($home) ?>#lets-create-together">Let's Create Together</a></li>
+                <li><a href="<?= e($home) ?>#our-story"><?= ct('nav_story') ?></a></li>
+                <li><a href="<?= e($home) ?>#what-we-create"><?= ct('nav_create') ?></a></li>
+                <li><a href="<?= e($home) ?>#behind-the-stitches"><?= ct('nav_stitches') ?></a></li>
+                <li><a href="<?= e($home) ?>#lets-create-together"><?= ct('nav_cta') ?></a></li>
             </ul>
         </nav>
         <div>
-            <h2 class="site-footer__title">Say Hello</h2>
+            <h2 class="site-footer__title"><?= ct('footer_contact_title') ?></h2>
             <ul>
                 <?php if ($email !== ''): ?><li><a href="mailto:<?= e($email) ?>"><?= e($email) ?></a></li><?php endif; ?>
                 <?php if ($phone !== ''): ?><li><a href="tel:<?= e(preg_replace('/[^\d+]/', '', $phone)) ?>"><?= e($phone) ?></a></li><?php endif; ?>
@@ -161,12 +162,13 @@ function render_footer(): void
                 <?php foreach ($socials as $label => $href): ?>
                 <li><a href="<?= e($href) ?>" rel="noopener me" target="_blank"><?= e($label) ?></a></li>
                 <?php endforeach; ?>
-                <li><span>Studio based in the Netherlands</span></li>
+                <li><span><?= ct('footer_location') ?></span></li>
             </ul>
         </div>
     </div>
     <div class="container site-footer__bottom">
-        <p>&copy; <?= date('Y') ?> <?= e(setting('site_name', 'Nena Studio')) ?>. Made by hand, with love.</p>
+        <?php /* Fixed credit line — intentionally not editable from the admin panel. */ ?>
+        <p>&copy; <?= date('Y') ?> Nena Studio. Crafted by the delicate hands of <a href="https://virgule.studio/" target="_blank" rel="noopener">Virgule</a>, with love.</p>
     </div>
 </footer>
     <?php

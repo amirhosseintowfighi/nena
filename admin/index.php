@@ -11,7 +11,7 @@ require_admin();
 
 $pdo = db();
 $tab = $_GET['tab'] ?? 'dashboard';
-if (!in_array($tab, ['dashboard', 'enquiries', 'portfolio', 'settings'], true)) {
+if (!in_array($tab, ['dashboard', 'enquiries', 'content', 'portfolio', 'settings'], true)) {
     $tab = 'dashboard';
 }
 
@@ -242,6 +242,24 @@ if (($_SERVER['REQUEST_METHOD'] ?? 'GET') === 'POST') {
             flash('success', 'Visibility updated.');
             redirect(admin_url(['tab' => 'portfolio']));
 
+        // ---------------------------------------------------- Website texts
+        case 'content_save':
+            $groupKey = (string) ($_POST['group'] ?? '');
+            $schema = content_schema();
+            if (!isset($schema[$groupKey])) {
+                flash('error', 'Unknown section.');
+                redirect(admin_url(['tab' => 'content']));
+            }
+            $posted = (array) ($_POST['content'] ?? []);
+            foreach ($schema[$groupKey]['fields'] as $key => [$label, $type, $default]) {
+                $value = str_replace("\r\n", "\n", trim((string) ($posted[$key] ?? '')));
+                $value = mb_substr($type === 'text' || $type === 'inline' ? preg_replace('/\s+/u', ' ', $value) : $value, 0, 10000);
+                // Store an empty value when it matches the default, so the default keeps applying
+                save_setting('content_' . $key, $value === $default ? '' : $value);
+            }
+            flash('success', '"' . $schema[$groupKey]['title'] . '" texts saved.');
+            redirect(admin_url(['tab' => 'content', 'group' => $groupKey]) . '#group-' . $groupKey);
+
         // ---------------------------------------------------- Settings
         case 'settings_save':
             $fields = [
@@ -349,6 +367,7 @@ if (($_SERVER['REQUEST_METHOD'] ?? 'GET') === 'POST') {
 $titles = [
     'dashboard' => 'Dashboard',
     'enquiries' => 'Enquiries',
+    'content'   => 'Website Texts',
     'portfolio' => 'Behind the Stitches',
     'settings'  => 'SEO & Site Settings',
 ];
@@ -407,6 +426,7 @@ if ($tab === 'dashboard'):
             <div class="quick">
                 <a class="a-btn a-btn--primary" href="<?= e(admin_url(['tab' => 'portfolio', 'new' => 1])) ?>">+ Add a new story</a>
                 <a class="a-btn" href="<?= e(admin_url(['tab' => 'enquiries', 'status' => 'New'])) ?>">Review new enquiries</a>
+                <a class="a-btn" href="<?= e(admin_url(['tab' => 'content'])) ?>">Edit website texts</a>
                 <a class="a-btn" href="<?= e(admin_url(['tab' => 'settings'])) ?>">Edit SEO settings</a>
                 <a class="a-btn" href="<?= e(url('sitemap.xml')) ?>" target="_blank" rel="noopener">Open sitemap.xml ↗</a>
             </div>
@@ -782,6 +802,44 @@ elseif ($tab === 'portfolio'):
         </div>
         <?php endif; ?>
     <?php endif;
+
+// ---------------------------------------------------------------- Website texts
+elseif ($tab === 'content'):
+    $openGroup = (string) ($_GET['group'] ?? '');
+    ?>
+    <section class="panel content-help">
+        <p>Edit every text on the website here. Each section saves separately.</p>
+        <ul class="hint">
+            <li>In multi-line fields, leave a <strong>blank line</strong> to start a new paragraph.</li>
+            <li>In the main headline, wrap words in <code>*stars*</code> to show them in the copper italic style.</li>
+            <li>Empty a field and save to restore its original text.</li>
+        </ul>
+    </section>
+    <?php foreach (content_schema() as $groupKey => $group): ?>
+    <details class="panel content-group" id="group-<?= e($groupKey) ?>" <?= $openGroup === $groupKey ? 'open' : '' ?>>
+        <summary><h2><?= e($group['title']) ?></h2><span class="content-group__count"><?= count($group['fields']) ?> texts</span></summary>
+        <form method="post" class="form-stack">
+            <input type="hidden" name="csrf_token" value="<?= e($token) ?>">
+            <input type="hidden" name="action" value="content_save">
+            <input type="hidden" name="group" value="<?= e($groupKey) ?>">
+            <?php foreach ($group['fields'] as $key => [$label, $type, $default]):
+                $value = content($key);
+                $changed = $value !== $default;
+                ?>
+            <label>
+                <span><?= e($label) ?><?php if ($changed): ?> <small class="content-edited">· edited</small><?php endif; ?></span>
+                <?php if ($type === 'text' || $type === 'inline'): ?>
+                <input type="text" name="content[<?= e($key) ?>]" value="<?= e($value) ?>" maxlength="10000">
+                <?php else: ?>
+                <textarea name="content[<?= e($key) ?>]" rows="<?= max(3, min(16, (int) ceil(mb_strlen($value) / 90) + substr_count($value, "\n"))) ?>"><?= e($value) ?></textarea>
+                <?php endif; ?>
+            </label>
+            <?php endforeach; ?>
+            <div><button class="a-btn a-btn--primary" type="submit">Save “<?= e($group['title']) ?>”</button></div>
+        </form>
+    </details>
+    <?php endforeach; ?>
+<?php
 
 // ---------------------------------------------------------------- Settings
 elseif ($tab === 'settings'):

@@ -285,6 +285,8 @@
     const handleWrap = $('#contactHandleWrap');
     const handleInput = $('#contact_handle');
     const handleLabel = $('#contactHandleLabel');
+    const submitLabel = form.dataset.submitLabel || 'Send My Story';
+    const successTitle = form.dataset.successTitle || 'Thank you — your story is on its way!';
     let files = [];
 
     const setError = (name, message) => {
@@ -463,7 +465,8 @@
                 renderPreviews();
                 handleWrap.hidden = true;
                 statusBox.className = 'form-status is-success';
-                statusBox.innerHTML = '<h4>Thank you — your story is on its way!</h4><p></p>';
+                statusBox.innerHTML = '<h4></h4><p></p>';
+                statusBox.querySelector('h4').textContent = successTitle;
                 statusBox.querySelector('p').textContent = json.message || "I'll be in touch soon.";
             } else {
                 if (json.errors) Object.entries(json.errors).forEach(([field, msg]) => setError(field, msg));
@@ -476,7 +479,7 @@
         } finally {
             submitBtn.classList.remove('is-loading');
             submitBtn.disabled = false;
-            $('.btn__label', submitBtn).textContent = 'Send My Story';
+            $('.btn__label', submitBtn).textContent = submitLabel;
             statusBox.focus({ preventScroll: true });
             statusBox.scrollIntoView({ behavior: prefersReducedMotion ? 'auto' : 'smooth', block: 'center' });
         }

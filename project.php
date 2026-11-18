@@ -32,7 +32,7 @@ if (!$project) {
 <main id="main" class="section notfound">
     <div class="container notfound__inner glass-card">
         <span class="stitch-border" aria-hidden="true"></span>
-        <p class="eyebrow">Behind the Stitches</p>
+        <p class="eyebrow"><?= ct('stitches_eyebrow') ?></p>
         <h1 class="section-title">This thread seems to have come loose.</h1>
         <p>The story you were looking for isn't here anymore — but there are plenty more to discover.</p>
         <a class="btn btn--primary" href="<?= e(url('')) ?>#behind-the-stitches">See All Stories</a>
@@ -122,8 +122,8 @@ if ($video && $video['type'] === 'file') {
         <div class="container">
             <nav class="breadcrumbs" aria-label="Breadcrumb">
                 <ol>
-                    <li><a href="<?= e(url('')) ?>">Home</a></li>
-                    <li><a href="<?= e(url('')) ?>#behind-the-stitches">Behind the Stitches</a></li>
+                    <li><a href="<?= e(url('')) ?>"><?= ct('nav_home') ?></a></li>
+                    <li><a href="<?= e(url('')) ?>#behind-the-stitches"><?= ct('nav_stitches') ?></a></li>
                     <li aria-current="page"><?= e($project['title']) ?></li>
                 </ol>
             </nav>
@@ -153,7 +153,7 @@ if ($video && $video['type'] === 'file') {
                         <?php else: ?>
                         <iframe src="<?= e($video['src']) ?>" title="<?= e($project['title']) ?> — process video" loading="lazy" allow="accelerometer; encrypted-media; gyroscope; picture-in-picture; fullscreen" allowfullscreen></iframe>
                         <?php endif; ?>
-                        <figcaption>From the studio: the process behind this piece.</figcaption>
+                        <figcaption><?= ct('storypage_video_caption') ?></figcaption>
                     </figure>
                     <?php endif; ?>
                 </div>
@@ -163,8 +163,8 @@ if ($video && $video['type'] === 'file') {
                         <?= render_story((string) $project['full_story'], 'h2') ?>
                     </div>
                     <div class="story-page__cta">
-                        <p>Have a story of your own you'd like to bring to life?</p>
-                        <a class="btn btn--primary" href="<?= e(url('')) ?>#lets-create-together">Let's Create Together</a>
+                        <p><?= ct('storypage_cta_text') ?></p>
+                        <a class="btn btn--primary" href="<?= e(url('')) ?>#lets-create-together"><?= ct('storypage_cta_button') ?></a>
                     </div>
                 </div>
             </div>
@@ -175,8 +175,8 @@ if ($video && $video['type'] === 'file') {
     <section class="section section--alt" aria-labelledby="relatedTitle">
         <div class="container">
             <header class="section-header">
-                <p class="eyebrow">Behind the Stitches</p>
-                <h2 class="section-title" id="relatedTitle">More Stories from the Studio</h2>
+                <p class="eyebrow"><?= ct('stitches_eyebrow') ?></p>
+                <h2 class="section-title" id="relatedTitle"><?= ct('storypage_related') ?></h2>
             </header>
             <div class="projects-grid">
                 <?php foreach ($related as $r): ?>
@@ -191,7 +191,7 @@ if ($video && $video['type'] === 'file') {
                             <span class="tag"><?= e($categories[$r['category']] ?? $r['category']) ?></span>
                             <h3 class="project-card__title"><?= e($r['title']) ?></h3>
                             <p class="project-card__summary"><?= e($r['short_summary']) ?></p>
-                            <span class="project-card__more">Read the story <span aria-hidden="true">→</span></span>
+                            <span class="project-card__more"><?= ct('stitches_read_more') ?> <span aria-hidden="true">→</span></span>
                         </div>
                     </a>
                 </article>

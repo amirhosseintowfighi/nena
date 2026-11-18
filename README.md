@@ -16,7 +16,8 @@ Production-ready PHP 8.1+ / MySQL website for Nena Studio — a creative textile
    - نام کاربری و رمز عبورِ پیش‌فرض را از مدیر پروژه بگیرید (عمداً در این مخزنِ عمومی نوشته نشده است).
    - **بلافاصله** از بخش *SEO & Settings* رمز را تغییر دهید.
 7. **SSL:** بعد از فعال شدن SSL، خطوط Force HTTPS را در `.htaccess` از حالت کامنت خارج کنید.
-8. **لوگوها:** فایل‌های `NENA MAIN.svg`، `NENA WHITE.svg` و `NENA BLACK.svg` در `assets/images/` قرار دارند؛ اگر حذف شوند، نسخه‌ی inline SVG به‌صورت خودکار نمایش داده می‌شود.
+8. **متن‌های سایت:** همه‌ی متن‌های سایت از بخش *Website Texts* در پنل قابل ویرایش‌اند. فقط خط کپی‌رایت فوتر («Crafted by the delicate hands of Virgule») ثابت است و از پنل تغییر نمی‌کند.
+9. **لوگوها:** فایل‌های `NENA MAIN.svg`، `NENA WHITE.svg` و `NENA BLACK.svg` در `assets/images/` قرار دارند؛ اگر حذف شوند، نسخه‌ی inline SVG به‌صورت خودکار نمایش داده می‌شود.
 
 ---
 
@@ -42,6 +43,7 @@ Production-ready PHP 8.1+ / MySQL website for Nena Studio — a creative textile
 ├── .htaccess / .user.ini     Rewrites, GZIP, caching, security headers / PHP upload limits
 ├── includes/
 │   ├── config.php            PDO connection + helpers (URLs, CSRF, uploads, settings)
+│   ├── content.php           Every editable website text + defaults (Admin → Website Texts)
 │   ├── layout.php            SEO <head>, header, footer, botanical inline SVG art
 │   └── logo.php              Inline SVG fallback of the NENA monogram
 ├── api/submit_enquiry.php    AJAX form handler (validation, MIME-sniffed uploads, rate-limit, email notice)
@@ -60,6 +62,7 @@ Production-ready PHP 8.1+ / MySQL website for Nena Studio — a creative textile
 - **SEO:** dynamic meta title/description/keywords, canonical, Open Graph, Twitter Card, NL geo tags, JSON-LD (`LocalBusiness` + `ProfessionalService`, 3× `Service`, `WebSite`, `ItemList`, per-story `CreativeWork` + `BreadcrumbList` + `VideoObject`), image sitemap, crawlable story pages.
 - **Performance:** lazy images, explicit dimensions/aspect ratios (no CLS), versioned assets with 1-year caching, GZIP, `prefers-reduced-motion` support.
 - **Security:** PDO prepared statements, CSRF tokens, `password_hash`, login throttling, session hardening, honeypot + time-trap + IP rate-limit on the form, MIME-sniffed uploads with random names, private enquiry uploads, no script execution in `/uploads`.
+- **Website Texts:** every heading, paragraph, button, form label and footer text is editable in Admin → Website Texts (stored in `settings` as `content_*`; empty = default). The footer credit line is fixed in `includes/layout.php` on purpose.
 - **Admin:** status filters & search, inline status change, notes, reply-by-email, secure file preview/download, story CRUD with cover/gallery/video uploads (MP4/WEBM or YouTube/Vimeo URL), SEO alt text, draft/publish, SERP preview, password & account management.
 
 ### Story formatting

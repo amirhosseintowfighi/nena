@@ -7,6 +7,7 @@ declare(strict_types=1);
 
 require_once dirname(__DIR__) . '/includes/config.php';
 require_once dirname(__DIR__) . '/includes/logo.php';
+require_once dirname(__DIR__) . '/includes/content.php';
 
 start_secure_session();
 send_security_headers();
@@ -109,6 +110,7 @@ function admin_layout_start(string $title, string $active): void
     $nav = [
         'dashboard' => ['Dashboard', '<path d="M4 13h6V4H4zm10 7h6V4h-6zM4 20h6v-4H4z" />'],
         'enquiries' => ['Enquiries', '<path d="M4 6h16v12H4z"/><path d="m4 7 8 6 8-6"/>'],
+        'content'   => ['Website Texts', '<path d="M4 6h16M4 12h10M4 18h13"/><path d="m17 15 3 3-3 3"/>'],
         'portfolio' => ['Behind the Stitches', '<circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="5" stroke-dasharray="2 2"/><path d="M17 4l3-2"/>'],
         'settings'  => ['SEO & Settings', '<circle cx="12" cy="12" r="3"/><path d="M12 2v3m0 14v3M2 12h3m14 0h3M5 5l2 2m10 10 2 2M5 19l2-2m10-10 2-2"/>'],
     ];
